@@ -572,6 +572,30 @@ img { max-width: 100%; display: block; }
   letter-spacing: -0.01em;
 }
 
+.product-card__colors {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.product-card__color-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.product-card__color-dot:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+.product-card__color-dot--light {
+  border-color: var(--ce-gray-200);
+}
+
 .product-card__meta {
   display: flex;
   align-items: center;
