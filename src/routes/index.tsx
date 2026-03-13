@@ -14,23 +14,23 @@ const heroSlides = [
 ];
 
 const allProducts = [
-  { name: "Classic Green Polo", category: "Polos", sizes: "S - 3XL", badge: "Best Seller", colors: ["#00703c", "#1a1a18", "#ffffff"], img: "https://images.unsplash.com/photo-1625910513413-5fc89e65cf4e?w=440&h=330&fit=crop" },
+  { name: "Classic Green Polo", category: "Polos", sizes: "S - 3XL", badge: "Best Seller", colors: ["#00703c", "#1a1a18", "#ffffff"], img: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=440&h=330&fit=crop" },
   { name: "Performance Polo", category: "Polos", sizes: "S - 2XL", badge: "", colors: ["#00703c", "#2c3e50", "#94a3b8"], img: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=440&h=330&fit=crop" },
   { name: "Women's Classic Polo", category: "Polos", sizes: "XS - 2XL", badge: "", colors: ["#00703c", "#ffffff", "#1a1a18"], img: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=440&h=330&fit=crop" },
   { name: "Softshell Jacket", category: "Jackets", sizes: "S - 2XL", badge: "New", colors: ["#1a1a18", "#00703c"], img: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=440&h=330&fit=crop" },
-  { name: "Insulated Parka", category: "Jackets", sizes: "M - 3XL", badge: "", colors: ["#1a1a18", "#2c3e50"], img: "https://images.unsplash.com/photo-1544923246-77307dd270cb?w=440&h=330&fit=crop" },
+  { name: "Insulated Parka", category: "Jackets", sizes: "M - 3XL", badge: "", colors: ["#1a1a18", "#2c3e50"], img: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=440&h=330&fit=crop" },
   { name: "Crew Neck Tee", category: "T-Shirts", sizes: "XS - 3XL", badge: "Staff Pick", colors: ["#00703c", "#1a1a18", "#ffffff", "#94a3b8"], img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=440&h=330&fit=crop" },
   { name: "Performance Tee", category: "T-Shirts", sizes: "S - 3XL", badge: "", colors: ["#00703c", "#1a1a18", "#E6570C"], img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=440&h=330&fit=crop" },
-  { name: "Embroidered Cap", category: "Hats", sizes: "One Size", badge: "Popular", colors: ["#00703c", "#1a1a18", "#2c3e50"], img: "https://images.unsplash.com/photo-1588850561407-ed78c334e67a?w=440&h=330&fit=crop" },
+  { name: "Embroidered Cap", category: "Hats", sizes: "One Size", badge: "Popular", colors: ["#00703c", "#1a1a18", "#2c3e50"], img: "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=440&h=330&fit=crop" },
   { name: "Knit Beanie", category: "Hats", sizes: "One Size", badge: "", colors: ["#00703c", "#1a1a18", "#94a3b8"], img: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=440&h=330&fit=crop" },
   { name: "Trucker Hat", category: "Hats", sizes: "One Size", badge: "", colors: ["#00703c", "#1a1a18"], img: "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=440&h=330&fit=crop" },
   { name: "Pullover Hoodie", category: "Hoodies", sizes: "S - 3XL", badge: "New", colors: ["#00703c", "#1a1a18", "#2c3e50"], img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=440&h=330&fit=crop" },
   { name: "Zip-Up Hoodie", category: "Hoodies", sizes: "S - 2XL", badge: "", colors: ["#1a1a18", "#00703c", "#94a3b8"], img: "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=440&h=330&fit=crop" },
-  { name: "Hi-Vis Safety Vest", category: "Safety", sizes: "S - 5XL", badge: "Required", colors: ["#e4ba3f", "#E6570C"], img: "https://images.unsplash.com/photo-1618517048289-4646b455e281?w=440&h=330&fit=crop" },
+  { name: "Hi-Vis Safety Vest", category: "Safety", sizes: "S - 5XL", badge: "Required", colors: ["#e4ba3f", "#E6570C"], img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=440&h=330&fit=crop" },
   { name: "Safety Rain Jacket", category: "Safety", sizes: "S - 4XL", badge: "", colors: ["#e4ba3f", "#1a1a18"], img: "https://images.unsplash.com/photo-1545594861-3bef43ff2fc8?w=440&h=330&fit=crop" },
 ];
 
-const categories = ["All", "Polos", "T-Shirts", "Jackets", "Hoodies", "Hats", "Safety"];
+const categories = ["All", "Polos", "T-Shirts", "Hoodies", "Hats", "Safety"];
 
 type SortKey = "popular" | "newest" | "name";
 
@@ -71,7 +71,7 @@ export default component$(() => {
   return (
     <>
       {/* Hero */}
-      <section class="hero">
+      <section class="hero dot-pattern dot-pattern--light">
         <div class="hero__bg" />
         <div class="hero__content">
           <div class="hero__text">
@@ -79,18 +79,18 @@ export default component$(() => {
               <span class="hero__badge-dot" />
               Employee Exclusive
             </div>
-            <h1 class="hero__title">
-              Wear the{" "}
+            <h1 class="hero__title hero__title--stacked">
+              Premium<br />
               <em>Carmichael</em>{" "}
-              Brand
+              Apparel
             </h1>
             <p class="hero__subtitle">
-              Premium branded apparel for the Carmichael Engineering team.
+              Custom branded apparel for the Carmichael Engineering team.
               From the job site to the office — gear that fits your role.
             </p>
             <div class="hero__actions">
               <a href="#products" class="btn btn--primary">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2 12 5.5 8 2l-4.38 1.46a2 2 0 0 0-1.34 1.68l-.97 7.75A2 2 0 0 0 3.3 15.1l3.6 3.6a1 1 0 0 0 .7.3H12m8-8V4.14a2 2 0 0 0-1.34-1.68" /><path d="M15 19l2 2 4-4" /></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 2H8.5L1 9l3 1v11h16V10l3-1L15.5 2z" /><path d="M8.5 2C9.79 4.37 10.79 6 12 6s2.21-1.63 3.5-4" /></svg>
                 Browse Apparel
               </a>
             </div>
@@ -145,7 +145,7 @@ export default component$(() => {
       </section>
 
       {/* Stats Row */}
-      <div class="stats-row">
+      <div class="stats-row dot-pattern">
         <div class="stats-row__card">
           <div class="stats-row__number">14</div>
           <div class="stats-row__label">Available Items</div>
@@ -165,7 +165,7 @@ export default component$(() => {
       </div>
 
       {/* Featured Banner */}
-      <section class="section">
+      <section class="section dot-pattern">
         <div class="featured-banner">
           <div class="featured-banner__content">
             <div class="featured-banner__tag">Just Landed</div>
@@ -190,12 +190,12 @@ export default component$(() => {
       </section>
 
       {/* Full Product Catalog */}
-      <section class="section section--full" style={{ background: "var(--ce-off-white)" }}>
+      <section class="section section--full dot-pattern" style={{ background: "var(--ce-off-white)" }}>
         <div class="apparel-catalog" id="products">
           <div class="apparel-catalog__header">
             <div class="apparel-catalog__title-row">
               <h2 class="apparel-catalog__title">
-                {activeCategory.value === "All" ? "All Apparel" : activeCategory.value}
+                Apparel{activeCategory.value !== "All" && ` — ${activeCategory.value}`}
               </h2>
               <span class="apparel-catalog__count">{filtered.value.length} items</span>
             </div>

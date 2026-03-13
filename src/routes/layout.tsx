@@ -51,9 +51,10 @@ export default component$(() => {
   const logoutAction = useLogout();
   const showLogin = useSignal(false);
 
-  // Auto-open login modal when redirected with ?login=1
+  // Auto-open login modal for unauthenticated users
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    if (loc.url.searchParams.get("login") === "1" && !auth.value.loggedIn) {
+    if (!auth.value.loggedIn) {
       showLogin.value = true;
     }
   });
@@ -79,7 +80,7 @@ export default component$(() => {
             />
           </Link>
           <nav class="site-header__nav">
-            <Link href="/" class={loc.url.pathname === "/" ? "active" : ""}>
+            <Link href="/" class={`site-header__nav-home ${loc.url.pathname === "/" ? "active" : ""}`}>
               Home
             </Link>
             <a href="/#products">
@@ -105,15 +106,17 @@ export default component$(() => {
 
       {/* Login Modal */}
       {showLogin.value && (
-        <div class="login-overlay" onClick$={() => (showLogin.value = false)}>
+        <div class="login-overlay" onClick$={() => { if (auth.value.loggedIn) showLogin.value = false; }}>
           <div class="login-modal" onClick$={(e) => e.stopPropagation()}>
-            <button
-              class="login-modal__close"
-              onClick$={() => (showLogin.value = false)}
-              aria-label="Close"
-            >
-              &times;
-            </button>
+            {auth.value.loggedIn && (
+              <button
+                class="login-modal__close"
+                onClick$={() => (showLogin.value = false)}
+                aria-label="Close"
+              >
+                &times;
+              </button>
+            )}
             <div class="login-modal__header">
               <img
                 src="/logo-carmichael.jpg"
@@ -122,7 +125,7 @@ export default component$(() => {
               />
               <h2 class="login-modal__title">Employee Login</h2>
               <p class="login-modal__subtitle">
-                Sign in to access the apparel store
+                Sign in to access apparel
               </p>
             </div>
             <Form action={loginAction} class="login-modal__form">
