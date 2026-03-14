@@ -1092,13 +1092,14 @@ img { max-width: 100%; display: block; }
 
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
+  .dot-pattern::before { opacity: 0.5; }
   .hero { min-height: auto; }
-  .hero__content { grid-template-columns: 1fr; text-align: left; padding: 2.5rem 1.5rem 1rem; align-items: flex-start; }
+  .hero__content { grid-template-columns: 1fr; text-align: center; padding: 2.5rem 1.5rem 1rem; align-items: center; }
   .hero__subtitle { margin: 0 0 2rem; }
   .hero__actions { flex-wrap: wrap; }
-  .hero__apparel-row { flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .hero__apparel-row { flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center; }
   .section--teasers::before { top: 2rem; }
-  .hero__subtitle-inline { margin-left: 0; font-size: 1.35rem; white-space: normal; text-align: left; margin-top: 1.25rem; }
+  .hero__subtitle-inline { margin-left: 0; font-size: 1.35rem; white-space: normal; text-align: center; margin-top: 1.25rem; }
   .hero__bento { display: none; }
   .hero__carousel { display: none; }
   .featured-banner { grid-template-columns: 1fr; }
