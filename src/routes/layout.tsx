@@ -82,8 +82,9 @@ export default component$(() => {
             />
           </Link>
           <nav class="site-header__categories">
+            <Link href="/" class={loc.url.pathname === "/" ? "active" : ""}>Home</Link>
+            <a href="/apparel/?category=T-Shirts">Shirts</a>
             <a href="/apparel/?category=Polos">Polos</a>
-            <a href="/apparel/?category=T-Shirts">T-Shirts</a>
             <a href="/apparel/?category=Hoodies">Hoodies</a>
             <a href="/apparel/?category=Hats">Hats</a>
             <a href="/apparel/?category=Safety">Safety</a>
