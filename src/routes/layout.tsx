@@ -51,30 +51,32 @@ export default component$(() => {
   const logoutAction = useLogout();
   const showLogin = useSignal(false);
 
-  // Auto-open login modal for unauthenticated users
+  // Auto-open login modal and lock scroll for unauthenticated users
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     if (!auth.value.loggedIn) {
       showLogin.value = true;
+      document.body.style.overflow = "hidden";
     }
   });
 
-  // Close modal on successful login
+  // Close modal and unlock scroll on successful login
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => loginAction.value);
     if (loginAction.value && !loginAction.value.failed) {
       showLogin.value = false;
+      document.body.style.overflow = "";
     }
   });
 
   return (
     <>
-      <header class="site-header">
-        <div class="accent-bar" />
+      <header class={`site-header ${loc.url.pathname.startsWith("/apparel") ? "site-header--solid" : ""}`}>
         <div class="site-header__inner">
           <Link href="/" class="site-header__logo">
             <img
-              src="/logo-carmichael.jpg"
+              src="/carmichael_logo-removebg-preview (1).png"
               alt="Carmichael Engineering"
               class="site-header__logo-img"
             />
@@ -83,7 +85,7 @@ export default component$(() => {
             <Link href="/" class={`site-header__nav-home ${loc.url.pathname === "/" ? "active" : ""}`}>
               Home
             </Link>
-            <a href="/#products">
+            <a href="/apparel/">
               Apparel
             </a>
             {auth.value.loggedIn ? (
@@ -119,7 +121,7 @@ export default component$(() => {
             )}
             <div class="login-modal__header">
               <img
-                src="/logo-carmichael.jpg"
+                src="/carmichael_logo-removebg-preview (1).png"
                 alt="Carmichael Engineering"
                 class="login-modal__logo"
               />
@@ -170,17 +172,6 @@ export default component$(() => {
         <Slot />
       </main>
 
-      <footer class="site-footer">
-        <div class="site-footer__inner">
-          <div class="site-footer__brand">
-            <img src="/logo-carmichael.jpg" alt="Carmichael Engineering" class="site-footer__logo" />
-            <span>&mdash; Employee Apparel</span>
-          </div>
-          <div class="site-footer__text">
-            Internal use only. Contact HR for order assistance.
-          </div>
-        </div>
-      </footer>
     </>
   );
 });
