@@ -1,4 +1,5 @@
 import { component$, useSignal, useComputed$ } from "@builder.io/qwik";
+import { useLocation } from "@builder.io/qwik-city";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 const allProducts = [
@@ -29,7 +30,10 @@ const badgeClass = (badge: string) => {
 };
 
 export default component$(() => {
-  const activeCategory = useSignal("All");
+  const loc = useLocation();
+  const urlCategory = loc.url.searchParams.get("category") || "All";
+  const initialCategory = categories.includes(urlCategory) ? urlCategory : "All";
+  const activeCategory = useSignal(initialCategory);
   const sortBy = useSignal<SortKey>("popular");
 
   const filtered = useComputed$(() => {

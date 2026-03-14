@@ -81,13 +81,14 @@ export default component$(() => {
               class="site-header__logo-img"
             />
           </Link>
+          <nav class="site-header__categories">
+            <a href="/apparel/?category=Polos">Polos</a>
+            <a href="/apparel/?category=T-Shirts">T-Shirts</a>
+            <a href="/apparel/?category=Hoodies">Hoodies</a>
+            <a href="/apparel/?category=Hats">Hats</a>
+            <a href="/apparel/?category=Safety">Safety</a>
+          </nav>
           <nav class="site-header__nav">
-            <Link href="/" class={`site-header__nav-home ${loc.url.pathname === "/" ? "active" : ""}`}>
-              Home
-            </Link>
-            <a href="/apparel/">
-              Apparel
-            </a>
             {auth.value.loggedIn ? (
               <Form action={logoutAction}>
                 <button type="submit" class="site-header__login site-header__login--logout">
