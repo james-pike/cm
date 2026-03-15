@@ -1,4 +1,4 @@
-import { component$, useSignal, $ } from "@builder.io/qwik";
+import { component$, useSignal, useVisibleTask$, $ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 const heroSlides = [
@@ -14,72 +14,109 @@ const teasers = [
     title: "New Season Jackets",
     text: "Softshell and insulated options built for Canadian weather.",
     cta: "Shop Jackets",
-    img: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&h=400&fit=crop",
+    imgs: [
+      "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=600&h=400&fit=crop",
+    ],
   },
   {
     tag: "Team Favourite",
     title: "Classic Polos",
     text: "The go-to for site visits and the office.",
     cta: "Shop Polos",
-    img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&h=400&fit=crop",
+    imgs: [
+      "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=400&fit=crop",
+    ],
   },
   {
     tag: "Cold Weather",
     title: "Hoodies & Layers",
     text: "Pullover and zip-up hoodies for cooler days.",
     cta: "Shop Hoodies",
-    img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=400&fit=crop",
+    imgs: [
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=600&h=400&fit=crop",
+    ],
   },
   {
     tag: "Headwear",
     title: "Caps & Beanies",
     text: "Embroidered caps and knit beanies for every season.",
     cta: "Shop Hats",
-    img: "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=600&h=400&fit=crop",
+    imgs: [
+      "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=600&h=400&fit=crop",
+    ],
   },
   {
     tag: "Essentials",
     title: "Crew Neck Tees",
     text: "Lightweight branded tees for everyday wear.",
     cta: "Shop Tees",
-    img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=400&fit=crop",
-  },
-  {
-    tag: "Performance",
-    title: "Athletic Wear",
-    text: "Moisture-wicking performance gear for active days.",
-    cta: "Shop Performance",
-    img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=400&fit=crop",
+    imgs: [
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=400&fit=crop",
+    ],
   },
   {
     tag: "Job Site",
     title: "Safety Gear",
     text: "Hi-vis vests and rain jackets that meet safety standards.",
     cta: "Shop Safety",
-    img: "https://images.unsplash.com/photo-1545594861-3bef43ff2fc8?w=600&h=400&fit=crop",
-  },
-  {
-    tag: "Layering",
-    title: "Zip-Up Fleece",
-    text: "Mid-weight fleece for transitional weather.",
-    cta: "Shop Fleece",
-    img: "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=600&h=400&fit=crop",
-  },
-  {
-    tag: "Winter Ready",
-    title: "Insulated Parkas",
-    text: "Heavy-duty insulation for the coldest job sites.",
-    cta: "Shop Parkas",
-    img: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=600&h=400&fit=crop",
-  },
-  {
-    tag: "New Arrival",
-    title: "Softshell Vests",
-    text: "Wind-resistant vests with Carmichael branding.",
-    cta: "Shop Vests",
-    img: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=600&h=400&fit=crop",
+    imgs: [
+      "https://images.unsplash.com/photo-1545594861-3bef43ff2fc8?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=400&fit=crop",
+    ],
   },
 ];
+
+const TeaserCard = component$<{ t: typeof teasers[0] }>(({ t }) => {
+  const imgIndex = useSignal(0);
+  const hovering = useSignal(false);
+
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(({ track, cleanup }) => {
+    track(() => hovering.value);
+    if (!hovering.value) {
+      imgIndex.value = 0;
+      return;
+    }
+    const interval = setInterval(() => {
+      imgIndex.value = (imgIndex.value + 1) % t.imgs.length;
+    }, 2000);
+    cleanup(() => clearInterval(interval));
+  });
+
+  return (
+    <a
+      href="/apparel/"
+      class="teaser-card"
+      onMouseEnter$={() => (hovering.value = true)}
+      onMouseLeave$={() => (hovering.value = false)}
+    >
+      <div class="teaser-card__image">
+        {t.imgs.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt={t.title}
+            width="600"
+            height="400"
+            class={`teaser-card__img ${imgIndex.value === i ? "active" : ""}`}
+          />
+        ))}
+      </div>
+      <div class="teaser-card__dots" />
+      <div class="teaser-card__body">
+        <div class="featured-banner__tag">{t.tag}</div>
+        <h3 class="teaser-card__title">{t.title}</h3>
+        <p class="teaser-card__text">{t.text}</p>
+        <span class="btn btn--primary btn--sm">{t.cta}</span>
+      </div>
+    </a>
+  );
+});
 
 export default component$(() => {
   const activeSlide = useSignal(0);
@@ -182,17 +219,7 @@ export default component$(() => {
           {/* Desktop: grid of cards */}
           <div class="teaser-grid">
             {teasers.map((t) => (
-              <a key={t.tag} href="/apparel/" class="teaser-card">
-                <div class="teaser-card__image">
-                  <img src={t.img} alt={t.title} width="600" height="400" />
-                </div>
-                <div class="teaser-card__body">
-                  <div class="featured-banner__tag">{t.tag}</div>
-                  <h3 class="teaser-card__title">{t.title}</h3>
-                  <p class="teaser-card__text">{t.text}</p>
-                  <span class="btn btn--primary btn--sm">{t.cta}</span>
-                </div>
-              </a>
+              <TeaserCard key={t.tag} t={t} />
             ))}
           </div>
 
@@ -214,7 +241,7 @@ export default component$(() => {
                       </div>
                     </div>
                     <div class="featured-banner__image">
-                      <img src={t.img} alt={t.title} width="700" height="500" />
+                      <img src={t.imgs[0]} alt={t.title} width="700" height="500" />
                     </div>
                   </div>
                 </div>

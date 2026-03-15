@@ -50,6 +50,7 @@ export default component$(() => {
   const loginAction = useLogin();
   const logoutAction = useLogout();
   const showLogin = useSignal(false);
+  const overlayFading = useSignal(false);
 
   // Auto-open login modal and lock scroll for unauthenticated users
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -65,8 +66,12 @@ export default component$(() => {
   useVisibleTask$(({ track }) => {
     track(() => loginAction.value);
     if (loginAction.value && !loginAction.value.failed) {
-      showLogin.value = false;
+      overlayFading.value = true;
       document.documentElement.style.overflow = "";
+      setTimeout(() => {
+        showLogin.value = false;
+        overlayFading.value = false;
+      }, 800);
     }
   });
 
@@ -110,7 +115,7 @@ export default component$(() => {
 
       {/* Login Modal */}
       {showLogin.value && (
-        <div class="login-overlay" onClick$={() => { if (auth.value.loggedIn) showLogin.value = false; }}>
+        <div class={`login-overlay ${overlayFading.value ? "login-overlay--fading" : ""}`} onClick$={() => { if (auth.value.loggedIn) showLogin.value = false; }}>
           <div class="login-modal" onClick$={(e) => e.stopPropagation()}>
             {auth.value.loggedIn && (
               <button
